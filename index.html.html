@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malik Enterprises | Dairy Feed & Farm Solutions</title>
+<meta name="description" content="Malik Enterprises - Quality cattle feed, dairy farm products and farmer support across Hazara Division.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#174d35;--green2:#236b48;--cream:#f5f0e5;--gold:#c99a3b;--dark:#17251d;--white:#fff;--muted:#66736b}
+body{font-family:Arial,Helvetica,sans-serif;color:var(--dark);line-height:1.6;background:#fff}
+a{text-decoration:none;color:inherit}
+.container{width:min(1120px,92%);margin:auto}
+header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.97);border-bottom:1px solid #e7e7e7}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:22px;font-weight:800;letter-spacing:.5px;color:var(--green)}
+.logo span{display:block;font-size:10px;letter-spacing:2px;color:var(--gold);margin-top:-4px}
+nav{display:flex;gap:26px;font-size:14px;font-weight:600}
+nav a:hover{color:var(--green2)}
+.menu{display:none;border:0;background:none;font-size:26px}
+.hero{background:linear-gradient(115deg,rgba(16,52,35,.96),rgba(31,91,61,.86)),url("https://images.unsplash.com/photo-1551884831-bbf3cdc6469e?auto=format&fit=crop&w=1800&q=80") center/cover;min-height:650px;color:white;display:flex;align-items:center}
+.hero-content{max-width:720px;padding:90px 0}
+.kicker{text-transform:uppercase;letter-spacing:3px;color:#e7c56d;font-weight:700;font-size:13px;margin-bottom:18px}
+h1{font-size:clamp(42px,6vw,72px);line-height:1.04;margin-bottom:22px}
+.hero p{font-size:20px;max-width:650px;color:#eef5f0;margin-bottom:32px}
+.buttons{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;padding:14px 24px;border-radius:5px;font-weight:700}
+.btn-primary{background:var(--gold);color:#182118}
+.btn-outline{border:1px solid rgba(255,255,255,.65);color:white}
+section{padding:85px 0}
+.section-head{text-align:center;max-width:700px;margin:0 auto 45px}
+.section-head .kicker{color:var(--gold);margin-bottom:8px}
+h2{font-size:38px;line-height:1.15;margin-bottom:12px}
+.section-head p{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.card{padding:28px;background:#fff;border:1px solid #e4e8e4;border-radius:10px;box-shadow:0 8px 25px rgba(0,0,0,.05)}
+.icon{width:48px;height:48px;border-radius:50%;background:var(--cream);display:grid;place-items:center;color:var(--green);font-weight:800;margin-bottom:20px}
+.card h3{margin-bottom:10px;font-size:20px}
+.card p{color:var(--muted);font-size:14px}
+.about{background:var(--cream)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-box{background:var(--green);color:white;border-radius:12px;padding:45px}
+.about-box h3{font-size:30px;margin-bottom:14px}
+.about-box p{color:#e6f0e9}
+.checks{margin-top:24px;display:grid;gap:12px}
+.checks div{font-weight:600}
+.checks div::before{content:"✓";color:var(--gold);margin-right:10px}
+.support{background:#fafafa}
+.support-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.support-item{padding:28px;background:white;border-radius:10px;border:1px solid #e8ebe8}
+.support-item h3{margin-bottom:8px}
+.support-item p{font-size:14px;color:var(--muted)}
+.cta{background:var(--green);color:white;text-align:center}
+.cta h2{max-width:720px;margin:0 auto 16px}
+.cta p{max-width:650px;margin:0 auto 28px;color:#dcebe2}
+.contact{background:white}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.contact-card{border:1px solid #e2e7e3;border-radius:10px;padding:30px}
+.contact-card h3{margin-bottom:14px}
+.contact-line{margin:12px 0;color:var(--muted)}
+footer{background:#12251b;color:#dce7df;padding:30px 0}
+.footer-row{display:flex;justify-content:space-between;gap:20px;align-items:center}
+footer small{color:#aebdb3}
+.price-table th,.price-table td{border-bottom:1px solid #e8ebe8}.price-table td{padding:13px 14px;color:var(--muted)}.price-table tbody tr:last-child td{border-bottom:0}.price-table tbody tr:hover{background:var(--cream)}
+.dairy-prices{background:var(--cream)}.daily-price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.daily-price-card{background:#fff;border:1px solid #e4e8e4;border-radius:10px;padding:24px}.daily-price-card h3{margin-bottom:8px}.daily-price{font-size:28px;font-weight:800;color:var(--green)}.daily-note{font-size:13px;color:var(--muted);margin-top:8px}
+@media(max-width:850px){
+ nav{display:none}.menu{display:block}.cards{grid-template-columns:1fr 1fr}.about-grid,.contact-grid{grid-template-columns:1fr}.support-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+ .hero{min-height:590px}.hero p{font-size:17px}.cards,.support-grid{grid-template-columns:1fr}section{padding:65px 0}h2{font-size:31px}.about-box{padding:30px}.footer-row{flex-direction:column;align-items:flex-start}
+}
+
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.team-card{padding:28px;background:#fff;border:1px solid #e4e8e4;border-radius:10px;box-shadow:0 8px 25px rgba(0,0,0,.05)}.team-role{display:inline-block;background:var(--cream);color:var(--green);font-size:11px;font-weight:800;letter-spacing:1px;padding:6px 10px;border-radius:999px;margin-bottom:14px}.team-card h3{font-size:21px;margin-bottom:7px}.team-card p{color:var(--muted);font-size:14px;margin:5px 0}.team-card a{color:var(--green2);font-weight:700}.doctor-card{border-left:4px solid var(--gold)}
+@media(max-width:850px){.team-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.team-grid{grid-template-columns:1fr}}
+
+/* Graphic feed index table */
+.feed-index-card{margin-top:28px;background:linear-gradient(145deg,#ffffff,#f4f8f4);border:1px solid #dfe8e1;border-radius:22px;padding:18px;box-shadow:0 16px 40px rgba(18,37,27,.09);position:relative;overflow:hidden}
+.feed-index-card:before{content:"";position:absolute;right:-55px;top:-55px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(194,157,77,.18) 0 35%,transparent 36%);pointer-events:none}
+.feed-index-title{display:flex;align-items:center;gap:14px;padding:8px 8px 18px;position:relative;z-index:1}
+.feed-index-mark{width:48px;height:48px;border-radius:14px;background:var(--green);color:#fff;display:grid;place-items:center;font-size:24px;font-weight:900;box-shadow:0 8px 18px rgba(18,37,27,.18)}
+.feed-index-title h3{margin:0;font-size:24px;color:var(--green)}
+.feed-index-title p{margin:3px 0 0;color:var(--muted);font-size:12px}
+.graphic-table{width:100%;border-collapse:separate;border-spacing:0 8px;position:relative;z-index:1}
+.graphic-table th{padding:13px 14px;color:#fff;background:linear-gradient(135deg,var(--green),var(--green2));font-size:11px;text-transform:uppercase;letter-spacing:1px;text-align:left;box-shadow:0 5px 12px rgba(23,77,53,.12)}
+.graphic-table th:first-child{border-radius:12px 0 0 12px}.graphic-table th:last-child{border-radius:0 12px 12px 0}
+.graphic-table td{padding:15px 14px;background:linear-gradient(180deg,#fff,#fbfdfb);border-top:1px solid #e7ece8;border-bottom:1px solid #e7ece8;color:#425148;font-size:14px;vertical-align:middle}
+.graphic-table td:first-child{border-left:1px solid #e7ece8;border-radius:12px 0 0 12px;font-weight:800;color:var(--green)}
+.graphic-table td:last-child{border-right:1px solid #e7ece8;border-radius:0 12px 12px 0;font-weight:800;color:var(--green)}
+.graphic-table tbody tr{transition:transform .18s ease,box-shadow .18s ease}.graphic-table tbody tr:hover{transform:translateY(-2px)}
+.feed-name{display:flex;align-items:center;gap:10px}.feed-icon{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#f7f0df,#e8efe9);display:grid;place-items:center;font-weight:900;color:var(--green);font-size:11px;flex:none;border:1px solid #dce5dd;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+.cp-badge{display:inline-flex;align-items:center;gap:7px;font-weight:900;color:var(--green);font-size:15px}.cp-number{min-width:32px}.plusminus{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;line-height:9px;font-size:12px;font-weight:900;height:20px}.plusminus .minus{margin-top:0}
+.price-badge{display:inline-block;padding:7px 10px;border-radius:10px;background:#eef5ef;color:var(--green);white-space:nowrap}
+@media(max-width:700px){.feed-descriptions > div[style*="grid-template-columns"]{grid-template-columns:1fr!important}.feed-index-card{padding:12px;border-radius:18px}.feed-index-title h3{font-size:20px}.graphic-table th,.graphic-table td{padding:12px 9px;font-size:12px}.graphic-table th:nth-child(1),.graphic-table td:nth-child(1){min-width:150px}.graphic-table th:nth-child(2),.graphic-table td:nth-child(2){min-width:62px}.graphic-table th:nth-child(4),.graphic-table td:nth-child(4){min-width:68px}.graphic-table th:nth-child(5),.graphic-table td:nth-child(5){min-width:92px}}
+
+@media(max-width:560px){.feed-descriptions>div:nth-child(2){grid-template-columns:1fr!important}}
+
+/* Bilingual English / Urdu system */
+.lang-switch{display:flex;gap:6px;align-items:center;margin-left:18px}.lang-btn{border:1px solid #dfe6e1;background:#fff;color:var(--green);padding:7px 10px;border-radius:7px;font-weight:800;cursor:pointer;font-size:12px}.lang-btn.active{background:var(--green);color:#fff}.urdu{font-family:"Noto Nastaliq Urdu","Noto Sans Arabic",Arial,sans-serif}
+body.rtl{direction:rtl} body.rtl header,body.rtl .nav,body.rtl nav,body.rtl .buttons,body.rtl .feed-index-title,body.rtl .feed-name,body.rtl .contact-grid,body.rtl .footer-row{direction:rtl} body.rtl .section-head,body.rtl .card,body.rtl .support-item,body.rtl .team-card,body.rtl .contact-card,body.rtl .daily-price-card,body.rtl .about,body.rtl .cta{text-align:right} body.rtl .hero-content{text-align:right} body.rtl .graphic-table{text-align:right} body.rtl .graphic-table th{text-align:right}
+@media(max-width:850px){.lang-switch{margin-left:8px;margin-right:auto}}
+
+.online-store .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.online-store .icon{font-size:28px;margin-bottom:12px}
+@media(max-width:850px){.online-store .cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.online-store .cards{grid-template-columns:1fr}}
+
+</style>\n<style>\n.lang-switch{display:flex;gap:6px;margin-left:14px}.lang-btn{border:1px solid #dfe5e0;background:#fff;color:var(--green);padding:7px 10px;border-radius:8px;font-weight:800;font-size:12px;cursor:pointer}.lang-btn.active{background:var(--green);color:#fff}.urdu{font-family:'Noto Nastaliq Urdu','Noto Naskh Arabic','Segoe UI',Tahoma,Arial,sans-serif}body.rtl{direction:rtl}body.rtl nav{direction:rtl}body.rtl .hero-content,body.rtl .section-head,body.rtl .card,body.rtl .support-item,body.rtl .contact-card,body.rtl .team-card,body.rtl .about-grid,body.rtl .cta{text-align:right}body.rtl .feed-index-title{flex-direction:row-reverse}.lang-note{font-size:11px;color:var(--muted);margin-top:6px}\n@media(max-width:850px){.lang-switch{margin-left:auto;margin-right:10px}.nav{gap:8px}}\n
+/* Bilingual English / Urdu system */
+.lang-switch{display:flex;gap:6px;align-items:center;margin-left:18px}.lang-btn{border:1px solid #dfe6e1;background:#fff;color:var(--green);padding:7px 10px;border-radius:7px;font-weight:800;cursor:pointer;font-size:12px}.lang-btn.active{background:var(--green);color:#fff}.urdu{font-family:"Noto Nastaliq Urdu","Noto Sans Arabic",Arial,sans-serif}
+body.rtl{direction:rtl} body.rtl header,body.rtl .nav,body.rtl nav,body.rtl .buttons,body.rtl .feed-index-title,body.rtl .feed-name,body.rtl .contact-grid,body.rtl .footer-row{direction:rtl} body.rtl .section-head,body.rtl .card,body.rtl .support-item,body.rtl .team-card,body.rtl .contact-card,body.rtl .daily-price-card,body.rtl .about,body.rtl .cta{text-align:right} body.rtl .hero-content{text-align:right} body.rtl .graphic-table{text-align:right} body.rtl .graphic-table th{text-align:right}
+@media(max-width:850px){.lang-switch{margin-left:8px;margin-right:auto}}
+</style>\n</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="logo" href="#">MALIK ENTERPRISES<span>DAIRY FARM SOLUTIONS</span></a>
+    <nav>
+      <a href="#about" data-i18n="About">About</a>
+      <a href="#products" data-i18n="Products">Products</a>
+      <a href="#online-store">Online Store</a>
+      <a href="#daily-prices" data-i18n="Daily Prices">Daily Prices</a>
+      <a href="#support" data-i18n="Farmer Support">Farmer Support</a>
+      <a href="#team" data-i18n="SPO Team">SPO Team</a>
+      <a href="#contact" data-i18n="Contact">Contact</a>
+    </nav>
+    <div class="lang-switch" aria-label="Language selector"><button id="enBtn" class="lang-btn active" data-lang="en" type="button" onclick="setLanguage('en')">English</button><button id="urBtn" class="lang-btn" data-lang="ur" type="button" onclick="setLanguage('ur')">اردو</button></div>
+    <button class="menu" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+ <div class="container hero-content">
+   <div class="kicker" data-i18n="Serving Hazara Division">Serving Hazara Division</div>
+   <h1 data-i18n="Quality Feed.<br>Healthier Animals.<br>Better Dairy Production.">Quality Feed.<br>Healthier Animals.<br>Better Dairy Production.</h1>
+   <p>Your trusted partner for cattle feed, dairy-farm products and practical farmer support from Malik Enterprises, Chappar Road near Madina CNG, Haripur.</p>
+   <div class="buttons">
+     <a class="btn btn-primary" href="#products" data-i18n="Explore Products">Explore Products</a>
+     <a class="btn btn-outline" href="#contact" data-i18n="Contact Us">Contact Us</a>
+   </div>
+ </div>
+</section>
+
+<section id="products">
+ <div class="container">
+  <div class="section-head">
+   <div class="kicker" data-i18n="What We Offer">What We Offer</div>
+   <h2 data-i18n="Our Products">Our Products</h2>
+   <p data-i18n="Reliable feed and dairy-farm solutions for farmers across Hazara Division.">Reliable feed and dairy-farm solutions for farmers across Hazara Division.</p>
+  </div>
+  <div class="feed-index-card">
+   <div class="feed-index-title">
+    <div class="feed-index-mark">🌾</div>
+    <div><h3 data-i18n="Feed Index">Feed Index</h3><p data-i18n="Product specifications &amp; listed prices">Product specifications &amp; listed prices</p></div>
+   </div>
+   <div style="overflow-x:auto">
+    <table class="graphic-table">
+     <thead><tr><th data-i18n="Brand">Brand</th><th data-i18n="Feed">Feed</th><th data-i18n="C.P.">C.P.</th><th data-i18n="Kind">Kind</th><th data-i18n="Price">Price</th></tr></thead>
+     <tbody>
+      <tr><td>Advance Nutrition</td><td><div class="feed-name"><span class="feed-icon">1111</span>1111</div></td><td><span class="cp-badge"><span class="cp-number">23</span><span class="plusminus"><span>+</span><span class="minus">−</span></span></span></td><td data-i18n="Pallet">Pallet</td><td><span class="price-badge">Rs. 5,120</span></td></tr>
+      <tr><td>FC Customize</td><td><div class="feed-name"><span class="feed-icon">111</span>111</div></td><td>21–23</td><td data-i18n="Pallet">Pallet</td><td><span class="price-badge">Rs. 4,835</span></td></tr>
+      <tr><td>FC Customize</td><td><div class="feed-name"><span class="feed-icon">11</span>11</div></td><td>20–21</td><td data-i18n="Pallet">Pallet</td><td><span class="price-badge">Rs. 4,370</span></td></tr>
+      <tr><td>FC Milk Flow</td><td><div class="feed-name"><span class="feed-icon">1</span>1</div></td><td>18–20</td><td data-i18n="Pallet">Pallet</td><td><span class="price-badge">Rs. 4,170</span></td></tr>
+      <tr><td>Milk Flow</td><td><div class="feed-name"><span class="feed-icon">24/25</span>24/25</div></td><td>16–18</td><td data-i18n="Pallet">Pallet</td><td><span class="price-badge">Rs. 4,060</span></td></tr>
+      <tr><td>Moon Star</td><td><div class="feed-name"><span class="feed-icon">30</span>30</div></td><td>16±1</td><td data-i18n="Pallet">Pallet</td><td><span class="price-badge">Rs. 3,835</span></td></tr>
+      <tr><td>Super Meat Grow</td><td><div class="feed-name"><span class="feed-icon">23+</span>23+</div></td><td>18+</td><td data-i18n="Pallet">Pallet</td><td><span class="price-badge">Rs. 4,170</span></td></tr>
+      <tr><td data-i18n="Meat Grow">Meat Grow</td><td><div class="feed-name"><span class="feed-icon">23</span>23</div></td><td>16+</td><td data-i18n="Pallet">Pallet</td><td><span class="price-badge">Rs. 3,970</span></td></tr>
+      <tr><td data-i18n="Calf Starter">Calf Starter</td><td><div class="feed-name"><span class="feed-icon">26</span>26</div></td><td>22–23</td><td data-i18n="Pallet">Pallet</td><td><span class="price-badge">Rs. 4,720</span></td></tr>
+      <tr><td>Noor Pur</td><td><div class="feed-name"><span class="feed-icon">32</span>32</div></td><td>15±1</td><td data-i18n="Pallet">Pallet</td><td><span class="price-badge">Rs. 3,535</span></td></tr>
+      <tr><td>FC Milk Flow</td><td><div class="feed-name"><span class="feed-icon">24/25</span>24/25</div></td><td>16–18</td><td data-i18n="Mash">Mash</td><td><span class="price-badge">Rs. 4,040</span></td></tr>
+      <tr><td>Moon Star</td><td><div class="feed-name"><span class="feed-icon">30</span>30</div></td><td>16±1</td><td data-i18n="Mash">Mash</td><td><span class="price-badge">Rs. 3,815</span></td></tr>
+     </tbody>
+    </table>
+   </div>
+   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;padding:0 4px">
+    <span style="display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:#f4f7f4;color:var(--green);font-size:11px;font-weight:800"><span style="font-size:15px">🌾</span data-i18n="Feed Index"> Feed Index</span>
+    <span style="display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:#fbf5e7;color:#7b5b1f;font-size:11px;font-weight:800"><span style="font-weight:900">+</span><span style="font-weight:900">−</span data-i18n="Protein range"> Protein range</span>
+   </div>
+  </div>
+  <p style="margin-top:16px;color:var(--muted);font-size:13px" data-i18n="Prices shown are current listed prices and may be updated daily.">Prices shown are current listed prices and may be updated daily.</p>
+
+  <div class="feed-descriptions" style="margin-top:48px">
+   <div class="section-head" style="margin-bottom:32px">
+    <div class="kicker" data-i18n="FC FEEDS">FC FEEDS</div>
+    <h2 data-i18n="Professional Nutrition for Better Farm Performance">Professional Nutrition for Better Farm Performance</h2>
+    <p data-i18n="Purpose-focused feed solutions designed around dairy, calf and meat-production requirements.">Purpose-focused feed solutions designed around dairy, calf and meat-production requirements.</p>
+   </div>
+   <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px">
+    <article class="card"><h3>FC 1111 — Extra Milk Feed</h3><p>Premium dairy feed formulated for high-producing animals, providing nutritional support for milk production, sustained energy, body condition and overall productivity. Designed for farmers focused on consistent performance and a well-managed dairy feeding program.</p></article>
+    <article class="card"><h3>FC 111 — Extra Milk Feed</h3><p>A performance-oriented dairy feed designed to support increased milk production, strong nutritional support and consistent animal performance. Its nutritional profile helps provide the energy and nutrients required by productive dairy animals while supporting healthy body condition.</p></article>
+    <article class="card"><h3>FC 11 — Extra Milk Feed</h3><p>A balanced dairy nutrition solution developed to support milk production, energy requirements and overall animal performance. Suitable for farmers looking for dependable nutritional support as part of their regular dairy feeding program.</p></article>
+    <article class="card"><h3>FC 1 — Extra Milk Feed</h3><p>A practical and reliable dairy feed formulated to support milk production, nutritional balance, healthy body condition and productive performance. Designed to help farmers maintain consistency in everyday dairy operations.</p></article>
+    <article class="card"><h3>FC 26 — Calf Starter</h3><p>A specially formulated starter feed for young calves during their early growth stage. Designed to provide nutritional support for healthy growth, development and early rumen development, helping establish a strong foundation for future productivity.</p></article>
+    <article class="card"><h3>FC 23 — Meat Grow</h3><p>A specialized feed for growing meat animals, formulated to support healthy weight gain, muscle development, body growth and consistent performance. Designed for farmers focused on achieving efficient growth through a properly managed feeding program.</p></article>
+    <article class="card"><h3>FC Super Meat Grow — Advanced Meat Growth Formula</h3><p>An advanced meat-growing feed designed for animals requiring strong nutritional support during the growth and finishing stages. Formulated to support healthy body development, muscle growth, consistent weight gain and efficient feed utilization.</p></article>
+   </div>
+   <div style="margin-top:26px;padding:24px;border-radius:10px;background:var(--green);color:#fff;text-align:center;font-weight:800;letter-spacing:.4px">From Calf Starter to Extra Milk and Meat Growth — FC Feeds provides purpose-focused nutrition for every stage of production.</div>
+
+   <div class="feed-descriptions" style="margin-top:58px">
+    <div class="section-head" style="margin-bottom:32px">
+     <div class="kicker" data-i18n="AS WANDA">AS WANDA</div>
+     <h2 data-i18n="Quality Feeding Solutions for Productive Dairy Animals">Quality Feeding Solutions for Productive Dairy Animals</h2>
+     <p>Reliable dairy nutrition solutions designed to support milk production, animal performance and everyday farm requirements.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px">
+     <article class="card"><h3>AS 5555 — Extra Milk Feed</h3><p>Premium dairy nutrition designed to support high milk production, sustained energy and productive performance. Developed for farmers seeking consistent nutritional support for high-performing dairy animals.</p></article>
+     <article class="card"><h3>AS 555 — Extra Milk Feed</h3><p>A quality dairy feed formulated to support milk production, animal performance and nutritional balance. Designed for farmers looking for dependable support as part of a well-managed dairy feeding program.</p></article>
+     <article class="card"><h3>AS 55 — Extra Milk Feed</h3><p>Designed to provide nutritional support for productive dairy animals, helping farmers maintain milk production, energy and overall performance through consistent feeding.</p></article>
+     <article class="card"><h3>AS 5 — Extra Milk Feed</h3><p>A practical dairy feed solution supporting milk production, nutritional requirements and healthy animal performance for everyday dairy-farm needs.</p></article>
+    </div>
+   </div>
+
+   <div class="feed-descriptions" style="margin-top:58px">
+    <div class="section-head" style="margin-bottom:32px">
+     <div class="kicker" data-i18n="DAIRY FARM ESSENTIALS">DAIRY FARM ESSENTIALS</div>
+     <h2 data-i18n="More Solutions for Your Dairy Farm">More Solutions for Your Dairy Farm</h2>
+     <p>Practical products to support animal comfort, farm hygiene and day-to-day dairy-farm management.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px">
+     <article class="card"><div class="icon">▰</div><h3 data-i18n="Animal Mats">Animal Mats</h3><p>Durable animal mats designed to provide a more comfortable and supportive resting surface for dairy animals. A practical addition to modern dairy housing, helping farmers improve the everyday comfort of their herd and maintain cleaner resting areas.</p></article>
+     <article class="card"><div class="icon">✦</div><h3 data-i18n="Dairy Farm Pesticides &amp; Farm Hygiene Solutions">Dairy Farm Pesticides &amp; Farm Hygiene Solutions</h3><p>Products selected for dairy-farm use to support effective farm hygiene and pest management. Suitable solutions can help farmers maintain cleaner, more hygienic surroundings and a better-managed farm environment. Product selection and application should follow the manufacturer's label and safety instructions.</p></article>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="daily-prices" class="dairy-prices">
+ <div class="container">
+  <div class="section-head">
+   <div class="kicker" data-i18n="Current Store Prices">CURRENT STORE PRICES</div>
+   <h2 data-i18n="Dairy &amp; Livestock Products">Dairy &amp; Livestock Products</h2>
+   <p>Silage, Khal and Choker prices change daily. Please confirm today’s rate and availability with Malik Enterprises before ordering.</p>
+  </div>
+  <div class="daily-price-grid">
+   <article class="daily-price-card"><h3>TMR Goat Feed</h3><div class="daily-price">Rs. 2,300</div><p class="daily-note">20 kg bag · Price listed per bag.</p></article>
+   <article class="daily-price-card"><h3>Silage</h3><div class="daily-price">Rs. 29.50 / kg</div><p class="daily-note">Price changes daily · Please confirm today's rate.</p></article>
+   <article class="daily-price-card"><h3>Madni Choker</h3><div class="daily-price">Rs. 3,000</div><p class="daily-note">37 kg bag · Price changes daily · Please confirm today's rate.</p></article>
+   <article class="daily-price-card"><h3>Insaf Khal Banola</h3><div class="daily-price">Price Updated Daily</div><p class="daily-note">Contact our team for today's price and availability.</p></article>
+  </div>
+  <p class="daily-note" style="text-align:center;margin-top:18px">Prices are indicative and may change. Final price, stock and delivery details are confirmed when you contact us.</p>
+ </div>
+</section>
+
+<section id="about" class="about">
+ <div class="container about-grid">
+  <div>
+   <div class="kicker" data-i18n="About Us">About Us</div>
+   <h2 data-i18n="Built around farmers and their needs.">Built around farmers and their needs.</h2>
+   <p>Malik Enterprises is a cattle-feed trading and dairy-farm solutions business based on Malik Enterprises, Chappar Road near Madina CNG, Haripur, serving farmers across Hazara Division.</p>
+   <div class="checks">
+    <div data-i18n="Quality-focused feed solutions">Quality-focused feed solutions</div>
+    <div data-i18n="Farmer education and guidance">Farmer education and guidance</div>
+    <div data-i18n="Veterinary support">Veterinary support</div>
+    <div data-i18n="Service across Hazara Division">Service across Hazara Division</div>
+   </div>
+  </div>
+  <div class="about-box">
+   <h3>We don't just sell feed — we support farmers.</h3>
+   <p>Our goal is to help dairy farmers make informed decisions about nutrition, animal health and farm management.</p>
+  </div>
+ </div>
+</section>
+
+<section id="support" class="support">
+ <div class="container">
+  <div class="section-head">
+   <div class="kicker" data-i18n="Farmer Support">Farmer Support</div>
+   <h2 data-i18n="Practical support for better dairy farming">Practical support for better dairy farming</h2>
+   <p>Guidance designed to help farmers improve animal health and dairy-farm performance.</p>
+  </div>
+  <div class="support-grid">
+   <div class="support-item"><h3 data-i18n="Animal Health">Animal Health</h3><p>General guidance and support related to healthy dairy animals.</p></div>
+   <div class="support-item"><h3 data-i18n="Vaccination Awareness">Vaccination Awareness</h3><p>Farmer education about the importance of timely vaccination and animal care.</p></div>
+   <div class="support-item"><h3 data-i18n="Milk Production">Milk Production</h3><p>Practical nutrition and farm-management awareness for dairy farmers.</p></div>
+   <div class="support-item"><h3 data-i18n="Veterinary Support">Veterinary Support</h3><p>Doctors availability is presented through our help desk service.</p></div>
+   <div class="support-item"><h3 data-i18n="Farmer Education">Farmer Education</h3><p>Helping farmers understand feed, nutrition and better farm practices.</p></div>
+   <div class="support-item"><h3 data-i18n="Hazara Coverage">Hazara Coverage</h3><p>Serving farmers across the Hazara Division.</p></div>
+  </div>
+ </div>
+</section>
+
+
+<section id="team" class="team">
+ <div class="container">
+  <div class="section-head">
+   <div class="kicker" data-i18n="Our Field Team">Our Field Team</div>
+   <h2 data-i18n="SPO &amp; Dealer Network">SPO &amp; Dealer Network</h2>
+   <p>Our Sales Promoting Officers support farmers and dealers across key areas of Hazara Division.</p>
+  </div>
+  <div class="team-grid">
+   <article class="team-card"><span class="team-role" data-i18n="SPO">SPO</span><h3>Malik Shabbir</h3><p><strong>Area:</strong> Panian, Haripur → Jhari Kass, Haripur</p><p>📞 <a href="tel:+923334049473">0333-4049473</a></p></article>
+   <article class="team-card"><span class="team-role" data-i18n="SPO">SPO</span><h3>Ibrar Tanoli</h3><p><strong>Area:</strong> Sarai Gadai, Haripur → Khokar Mera, Havelian</p><p>📞 <a href="tel:+923186982017">0318-6982017</a></p></article>
+   <article class="team-card"><span class="team-role" data-i18n="SPO">SPO</span><h3>Zeeshan</h3><p><strong>Area:</strong> Abbottabad</p><p>📞 <a href="tel:+923715969029">0371-5969029</a></p></article>
+   <article class="team-card"><span class="team-role" data-i18n="SPO">SPO</span><h3>Zubair</h3><p><strong>Area:</strong> Mansehra</p><p>📞 <a href="tel:+923115508970">0311-5508970</a></p></article>
+   <article class="team-card"><span class="team-role" data-i18n="SPO">SPO</span><h3>Asif</h3><p><strong>Area:</strong> Sarai Naimat Khan, Haripur</p><p>📞 Contact: <strong>Coming Soon</strong></p></article>
+  </div>
+ </div>
+</section>
+
+<section id="doctors" class="support">
+ <div class="container">
+  <div class="section-head">
+   <div class="kicker" data-i18n="Veterinary Support">Veterinary Support</div>
+   <h2 data-i18n="Our Doctors">Our Doctors</h2>
+   <p>Veterinary support is available through Malik Enterprises. Doctor availability will be updated as our network expands.</p>
+  </div>
+  <div class="team-grid">
+   <article class="team-card doctor-card"><span class="team-role" data-i18n="VETERINARY DOCTOR">VETERINARY DOCTOR</span><h3>Dr. Salman Qureshi</h3><p>Veterinary support is coordinated through the Malik Enterprises Farmer Help Desk.</p><p>📞 Help Desk: <a href="tel:+923245375296">0324-5375296</a></p></article>
+  </div>
+ </div>
+</section>
+
+
+<section id="online-store" class="online-store">
+ <div class="container">
+  <div class="section-head">
+   <div class="kicker">MALIK ENTERPRISES ONLINE STORE</div>
+   <h2>Shop Dairy &amp; Livestock Essentials</h2>
+   <p>We are developing a convenient way for customers in Haripur to discover and order useful dairy-farm and livestock products from Malik Enterprises.</p>
+  </div>
+  <div class="cards">
+   <article class="card"><img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=900&q=80" alt="Cattle on a dairy farm" loading="lazy" style="width:100%;height:190px;object-fit:cover;border-radius:10px"><h3>Dairy Products</h3><p>Selected dairy-related products, subject to availability.</p></article>
+   <article class="card"><img src="https://images.unsplash.com/photo-1516467508483-a7212fadecee?auto=format&fit=crop&w=900&q=80" alt="Livestock on a farm" loading="lazy" style="width:100%;height:190px;object-fit:cover;border-radius:10px"><h3>Livestock &amp; Farm Supplies</h3><p>Useful everyday items for cattle, buffalo, goats and dairy-farm care.</p></article>
+   <article class="card"><img src="https://images.unsplash.com/photo-1594761051656-153faa9a5c0d?auto=format&fit=crop&w=900&q=80" alt="Green fodder crop for livestock" loading="lazy" style="width:100%;height:190px;object-fit:cover;border-radius:10px"><h3>Dairy Farm Solutions</h3><p>Farm-management and animal-care essentials selected for local farmers.</p></article>
+   <article class="card"><div class="icon">📦</div><h3>Local Delivery</h3><p>Initial delivery focus: Haripur. Delivery charges and timing will be confirmed before an order is accepted.</p></article>
+  </div>
+  <div class="cta" style="margin-top:28px">
+   <h2>Ask About Products &amp; Availability</h2>
+   <p>Message our team to confirm the current product range, price, stock and delivery details. An order is confirmed only after these details are agreed.</p>
+   <a class="btn btn-primary" href="https://wa.me/923245375296?text=Assalam-o-Alaikum%2C%20I%20want%20to%20ask%20about%20Malik%20Enterprises%20online%20store%20products%20and%20availability." target="_blank" rel="noopener">Enquire on WhatsApp</a>
+   <p style="margin-top:12px;font-size:13px">Online ordering and payment checkout are not active yet. Product availability, final prices and delivery arrangements must be confirmed with our team.</p>
+  </div>
+ </div>
+</section>
+
+<section class="cta">
+ <div class="container">
+  <h2 data-i18n="Looking for the right feed solution for your dairy farm?">Looking for the right feed solution for your dairy farm?</h2>
+  <p>Talk to Malik Enterprises through our help desk and discuss your requirements.</p>
+  <a class="btn btn-primary" href="#contact" data-i18n="Talk to Us">Talk to Us</a>
+ </div>
+</section>
+
+<section id="contact" class="contact">
+ <div class="container">
+  <div class="section-head">
+   <div class="kicker" data-i18n="Get In Touch">Get In Touch</div>
+   <h2 data-i18n="Contact Malik Enterprises">Contact Malik Enterprises</h2>
+   <p>Malik Enterprises, Chappar Road near Madina CNG, Haripur — serving farmers across Hazara Division.</p>
+  </div>
+  <div class="contact-grid">
+   <div class="contact-card">
+    <h3 data-i18n="Find Us">Find Us</h3>
+    <p class="contact-line">📍 Malik Enterprises, Chappar Road near Madina CNG, Haripur</p>
+    <a class="btn btn-primary" href="https://maps.app.goo.gl/krkkHvC6jofw3BwZA" target="_blank" rel="noopener" data-i18n="Open Google Maps">Open Google Maps</a>
+   </div>
+  
+   <div class="contact-card">
+    <h3>Malik Enterprises</h3>
+    <div class="contact-line">📍 Malik Enterprises, Chappar Road near Madina CNG, Haripur</div>
+    <div class="contact-line">📞 Farmer Help Desk: 0324-5375296</div>
+    <div class="contact-line">🩺 Veterinary support coordinated through our Farmer Help Desk</div>
+   </div>
+   <div class="contact-card">
+    <h3 data-i18n="Quick Message">Quick Message</h3>
+    <p class="contact-line">For product information, farmer support and dairy-farm requirements, contact our help desk.</p>
+    <a class="btn btn-primary" href="tel:+923245375296" data-i18n="Call Help Desk">Call Help Desk</a>
+   </div>
+  </div>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="container footer-row">
+  <div><strong>MALIK ENTERPRISES</strong><br><small>Quality Feed. Healthier Animals. Better Dairy Production.</small></div>
+  <small>© 2026 Malik Enterprises. All rights reserved.</small>
+ </div>
+</footer>
+
+
+<script>
+const URDU_TRANSLATIONS = {'About': 'تعارف', 'Products': 'مصنوعات', 'Daily Prices': 'روزانہ قیمتیں', 'Farmer Support': 'کسان معاونت', 'SPO Team': 'ایس پی او ٹیم', 'Contact': 'رابطہ', 'Serving Hazara Division': 'ہزارہ ڈویژن میں خدمات', 'Quality Feed.<br>Healthier Animals.<br>Better Dairy Production.': 'معیاری فیڈ۔<br>صحت مند جانور۔<br>بہتر دودھ کی پیداوار۔', 'Explore Products': 'مصنوعات دیکھیں', 'Contact Us': 'ہم سے رابطہ کریں', 'What We Offer': 'ہم کیا پیش کرتے ہیں', 'Our Products': 'ہماری مصنوعات', 'Reliable feed and dairy-farm solutions for farmers across Hazara Division.': 'ہزارہ ڈویژن کے کسانوں کے لیے قابلِ اعتماد فیڈ اور ڈیری فارم حل۔', 'Feed Index': 'فیڈ انڈیکس', 'Product specifications &amp; listed prices': 'مصنوعات کی تفصیلات اور درج قیمتیں', 'Brand': 'برانڈ', 'Feed': 'فیڈ', 'C.P.': 'پروٹین', 'Kind': 'قسم', 'Price': 'قیمت', 'Pallet': 'پیلیٹ', 'Mash': 'میش', 'Protein range': 'پروٹین کی حد', 'Prices shown are current listed prices and may be updated daily.': 'درج قیمتیں موجودہ قیمتیں ہیں اور روزانہ اپ ڈیٹ کی جا سکتی ہیں۔', 'FC FEEDS': 'ایف سی فیڈ', 'Professional Nutrition for Better Farm Performance': 'بہتر فارم کارکردگی کے لیے پیشہ ورانہ غذائیت', 'Purpose-focused feed solutions designed around dairy, calf and meat-production requirements.': 'ڈیری، بچھڑے اور گوشت کی پیداوار کی ضروریات کے مطابق تیار کردہ غذائی حل۔', 'Extra Milk Feed': 'اضافی دودھ فیڈ', 'Calf Starter': 'بچھڑا اسٹارٹر', 'Meat Grow': 'میٹ گرو', 'Advanced Meat Growth Formula': 'جدید گوشت بڑھانے کا فارمولا', 'AS FEEDS': 'اے ایس فیڈ', 'Quality Feeding Solutions for Productive Dairy Animals': 'پیداواری ڈیری جانوروں کے لیے معیاری غذائی حل', 'Dairy Performance Feed': 'ڈیری پرفارمنس فیڈ', 'DAIRY FARM ESSENTIALS': 'ڈیری فارم ضروریات', 'More Solutions for Your Dairy Farm': 'آپ کے ڈیری فارم کے لیے مزید حل', 'Animal Mats': 'جانوروں کے میٹس', 'Dairy Farm Pesticides &amp; Farm Hygiene Solutions': 'ڈیری فارم کیڑے مار ادویات اور فارم حفظانِ صحت کے حل', 'Daily Market Prices': 'روزانہ مارکیٹ قیمتیں', 'Dairy Farm Products': 'ڈیری فارم مصنوعات', 'Price Updated Daily': 'قیمت روزانہ اپ ڈیٹ', 'Daily Update': 'روزانہ اپ ڈیٹ', 'Khal': 'کھل', 'Choker': 'چوکر', 'Other Dairy Products': 'دیگر ڈیری مصنوعات', 'About Us': 'ہمارے بارے میں', 'Built around farmers and their needs.': 'کسانوں اور ان کی ضروریات کے گرد قائم', 'Quality-focused feed solutions': 'معیاری فیڈ کے حل', 'Farmer education and guidance': 'کسانوں کی تعلیم اور رہنمائی', 'Veterinary support': 'ویٹرنری معاونت', 'Service across Hazara Division': 'ہزارہ ڈویژن بھر میں خدمات', 'Practical support for better dairy farming': 'بہتر ڈیری فارمنگ کے لیے عملی معاونت', 'Animal Health': 'جانوروں کی صحت', 'Vaccination Awareness': 'ویکسینیشن آگاہی', 'Milk Production': 'دودھ کی پیداوار', 'Veterinary Support': 'ویٹرنری معاونت', 'Farmer Education': 'کسان تعلیم', 'Hazara Coverage': 'ہزارہ کوریج', 'Our Field Team': 'ہماری فیلڈ ٹیم', 'SPO &amp; Dealer Network': 'ایس پی او اور ڈیلر نیٹ ورک', 'SPO': 'ایس پی او', 'Our Doctors': 'ہمارے ڈاکٹر', 'VETERINARY DOCTOR': 'ویٹرنری ڈاکٹر', 'Looking for the right feed solution for your dairy farm?': 'اپنے ڈیری فارم کے لیے درست فیڈ حل تلاش کر رہے ہیں؟', 'Talk to Us': 'ہم سے بات کریں', 'Get In Touch': 'رابطہ کریں', 'Contact Malik Enterprises': 'ملک انٹرپرائزز سے رابطہ کریں', 'Find Us': 'ہمیں تلاش کریں', 'Open Google Maps': 'گوگل میپس کھولیں', 'Quick Message': 'فوری پیغام', 'Call Help Desk': 'ہیلپ ڈیسک پر کال کریں'};
+function setLanguage(lang){
+ document.documentElement.lang=lang==='ur'?'ur':'en'; document.body.classList.toggle('rtl',lang==='ur'); document.body.classList.toggle('urdu',lang==='ur');
+ document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.getAttribute('data-i18n'); if(lang==='ur'&&URDU_TRANSLATIONS[key]) el.innerHTML=URDU_TRANSLATIONS[key]; else el.innerHTML=key;});
+ document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang)); localStorage.setItem('malik-language',lang);
+}
+document.addEventListener('DOMContentLoaded',()=>setLanguage(localStorage.getItem('malik-language')||'en'));
+</script></body>
+</html>
