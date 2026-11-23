@@ -1,0 +1,12 @@
+{
+  "id": "/",
+  "name": "Vetnova",
+  "short_name": "Vetnova",
+  "description": "Vetnova is an integrated livestock and dairy farming solutions platform offering animal feed, dairy equipment, veterinary services, artificial insemination, farmer education and online ordering. Anything One Click Away.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#14532d"
+}
