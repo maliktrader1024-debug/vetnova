@@ -97,12 +97,14 @@ th{background:#edf1e7;color:#293568}.product .emoji{background:#edf1e7}.field la
 <div class="notice" id="demoNote">VETNOVA catalogue and account access use Supabase. Operational modules require the matching VETNOVA operations SQL and role-based policies.</div>
 <section class="card" id="accountPanel" style="margin:12px 0">
   <div class="sectionhead" style="margin-top:0"><h2>Account access</h2><span class="pill" id="accountRole">Not signed in</span></div>
+  <div id="emailVerificationNotice" class="notice card hide" role="status" aria-live="polite" style="margin:10px 0;border-left:4px solid #c6ad73">Your email must be verified before you can access VETNOVA. Check your inbox and spam folder.</div>
   <div id="signedOutBox"><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(190px,1fr))">
     <div class="field"><label for="authEmail">Email</label><input id="authEmail" type="email" autocomplete="username" placeholder="Your email"></div>
     <div class="field"><label for="authPassword">Password</label><input id="authPassword" type="password" autocomplete="new-password" placeholder="At least 6 characters"></div>
     <div class="field"><label for="requestedRole">Register as</label><select id="requestedRole"><option value="customer" selected>Customer</option><option value="farmer">Farmer</option><option value="dealer">Dealer</option><option value="spo">SPO</option><option value="admin">Admin (approval required)</option><option value="administrator">Administrator (approval required)</option></select></div>
   </div><div class="row"><button class="btn" onclick="vetnovaSignIn()">Sign in</button><button class="btn secondary" onclick="vetnovaSignUp()">Create account</button></div>
-  <p class="small">Choose the account type you are requesting. Dealer, SPO, Admin and Administrator access is not activated automatically. VETNOVA management must approve and assign the role; selecting Admin or Administrator never grants administrator privileges.</p></div>
+  <div class="row" style="margin-top:8px"><button class="btn secondary" type="button" onclick="vetnovaResendVerification()">Resend verification email</button></div>
+  <p class="small">New accounts must verify their email before entering VETNOVA. Dealer, SPO, Admin and Administrator access is not activated automatically. VETNOVA management must approve and assign the role; selecting Admin or Administrator never grants administrator privileges.</p></div>
   <div id="signedInBox" class="hide"><span id="accountEmail" class="small"></span> <button class="btn secondary" onclick="vetnovaSignOut()">Sign out</button></div>
 </section>
 <nav class="tabs" id="tabs" aria-hidden="true" style="display:none">
@@ -157,6 +159,20 @@ th{background:#edf1e7;color:#293568}.product .emoji{background:#edf1e7}.field la
   <div class="home-section-title"><div><span class="home-kicker">APPROVED FARMER ACCOUNT</span><h2>Farmer Section</h2><p>Farmer-only services available after signing in with an approved Farmer account.</p></div></div>
   <div class="app-icon-grid">
    <button class="app-icon" type="button" onclick="showPage('semen')"><span class="app-glyph">🧬</span><strong>09 · Artificial Insemination</strong><small>Open the breeding service workspace</small></button>
+  </div>
+  <div class="module-card" id="farmerReminderPanel" style="margin-top:16px">
+   <h3>⏰ Farmer Alarms &amp; Reminders</h3>
+   <p class="small">Set your own milking, feeding or custom reminders. Each farmer sees only reminders saved on this device for their signed-in account.</p>
+   <div class="form-grid">
+    <label>Reminder type<select id="farmerReminderType"><option value="Morning milking">Morning milking</option><option value="Evening milking">Evening milking</option><option value="Animal feeding">Animal feeding</option><option value="Water / animal care">Water / animal care</option><option value="Custom reminder">Custom reminder</option></select></label>
+    <label>Alarm time<input id="farmerReminderTime" type="time" value="06:00"></label>
+    <label>Animal name / ID (optional)<input id="farmerReminderAnimal" placeholder="e.g. Cow 01"></label>
+    <label>Repeat<select id="farmerReminderRepeat"><option value="daily">Every day</option><option value="weekdays">Monday to Friday</option><option value="weekends">Saturday and Sunday</option></select></label>
+   </div>
+   <div class="field"><label for="farmerReminderNote">Reminder note</label><input id="farmerReminderNote" placeholder="e.g. Give feed after morning milking"></div>
+   <div class="row"><button class="btn" id="farmerReminderSaveButton" type="button" onclick="saveFarmerReminder()">Save reminder</button><button class="btn secondary" type="button" onclick="enableFarmerReminderNotifications()">Enable alarm notifications</button></div>
+   <div id="farmerReminderStatus" class="hint">Notifications work when the Vetnova page/app is open. Reliable alarms while the app is fully closed require a native Android notification or push-notification setup.</div>
+   <div id="farmerReminderList" style="margin-top:12px"></div>
   </div>
  </section>
  <div class="home-feature-row">
@@ -256,7 +272,7 @@ th{background:#edf1e7;color:#293568}.product .emoji{background:#edf1e7}.field la
 <div class="hero"><h2 data-en="Admin Dashboard & Product Management" data-ur="ایڈمن ڈیش بورڈ اور مصنوعات کا انتظام">Admin Dashboard & Product Management</h2><p data-en="Manage the live product catalogue and prices. Only accounts with the admin role can make changes; Supabase Row Level Security enforces permissions." data-ur="مجوزہ کنٹرولز: مصنوعات، قیمتیں، مرکزی اسٹاک، ڈیلر کو اسٹاک، ڈیلر کی فروخت، ایس پی اوز، ڈاکٹرز، آرڈرز اور ڈیلیوری کا انتظام۔ اس ڈرافٹ میں حقیقی اکاؤنٹس اور ڈیٹا بیس منسلک نہیں۔">Manage the live product catalogue and prices. Only accounts with the admin role can make changes; Supabase Row Level Security enforces permissions.</p></div>
 <div class="notice card" id="adminAccessNotice">Sign in with an administrator account to access live product management. Admin permissions are verified through your Supabase profile and database security policies.</div>
 <div class="card panel" id="adminProductManager" style="margin:12px 0">
-  <h3>Live product catalogue</h3><p class="small">Add products, update prices, or delete products. Changes are saved directly to Supabase and restricted to administrator accounts.</p>
+  <h3>Live product catalogue</h3><p class="small">Add products, edit existing product details and prices, or deactivate products. Deactivation preserves historical order references. Changes are restricted to administrator accounts and Supabase RLS.</p>
   <div class="field"><label for="newProductName">Product name</label><input id="newProductName" placeholder="Product name"></div>
   <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
     <div class="field"><label for="newProductCategory">Category</label><select id="newProductCategory"><option value="Feed">Feed</option><option value="Equipment">Dairy Equipment</option><option value="Other">Other</option></select></div>
@@ -407,7 +423,7 @@ th{background:#edf1e7;color:#293568}.product .emoji{background:#edf1e7}.field la
 // VETNOVA public client: use only the publishable key here; never put a service-role key in the app.
 const VETNOVA_SUPABASE_URL = 'https://pjfkupaoiifempxieuvm.supabase.co';
 const VETNOVA_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_48vhRFtfesuYnFpHKBrzmg_itIhW0Qk';
-const vetnovaSupabase = window.supabase.createClient(VETNOVA_SUPABASE_URL, VETNOVA_SUPABASE_PUBLISHABLE_KEY);
+const vetnovaSupabase = window.supabase.createClient(VETNOVA_SUPABASE_URL, VETNOVA_SUPABASE_PUBLISHABLE_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
 
 function safeText(value) {
   return String(value ?? '').replace(/[&<>\"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]));
@@ -609,76 +625,66 @@ let vetnovaRole = 'guest';
 const VETNOVA_PRODUCT_FIELDS = 'id,name,category,description,price,stock_quantity,unit,image_url,is_available,updated_at';
 function setAccountUI(user, role='guest') {
   vetnovaSession = user ? {user} : null; vetnovaRole = role || 'guest';
-  const signedOut = document.getElementById('signedOutBox');
-  const signedIn = document.getElementById('signedInBox');
-  const roleTag = document.getElementById('accountRole');
-  // Keep sign-in/create-account controls visible; an active session is shown alongside them.
-  if (signedOut) signedOut.classList.remove('hide');
-  if (signedIn) signedIn.classList.toggle('hide', !user);
-  if (roleTag) roleTag.textContent = user ? ('Signed in · ' + vetnovaRole) : 'Not signed in';
-  const email = document.getElementById('accountEmail'); if (email) email.textContent = user?.email || '';
-  const isAdmin = !!user && vetnovaRole === 'admin';
-  const isFarmer = !!user && vetnovaRole === 'farmer';
-  const farmerPanel=document.getElementById('farmerWorkspacePanel'); if(farmerPanel) farmerPanel.classList.toggle('hide',!isFarmer);
-  const farmerPortal=document.getElementById('farmerportal'); if(farmerPortal) farmerPortal.classList.toggle('hide',!isFarmer);
-  const semenPage=document.getElementById('semen'); if(semenPage) semenPage.classList.toggle('hide',!(isFarmer||isAdmin));
-  const pageAccess = {admin:isAdmin, farmerdata:isAdmin, accounting:isAdmin,
-    dealer: isAdmin || (!!user && vetnovaRole === 'dealer'),
-    spo: isAdmin || (!!user && vetnovaRole === 'spo')};
-  Object.entries(pageAccess).forEach(([page,allowed]) => {
-    document.querySelectorAll(`[data-page="${page}"]`).forEach(b => b.classList.toggle('hide', !allowed));
-    const section=document.getElementById(page); if(section) section.classList.toggle('hide', !allowed);
-  });
-  // Keep operational workspaces and every shortcut hidden from all unapproved roles.
-  document.querySelectorAll('[data-access]').forEach(tile=>{
-    const a=tile.dataset.access;
-    const ok=a==='admin'?isAdmin:a==='farmer'?(isFarmer):a==='dealer'?(isAdmin|| (!!user&&vetnovaRole==='dealer')):(isAdmin|| (!!user&&vetnovaRole==='spo'));
-    tile.classList.toggle('hide',!ok);
-  });
+  const signedOut=document.getElementById('signedOutBox'),signedIn=document.getElementById('signedInBox');
+  const roleTag=document.getElementById('accountRole'),verificationNotice=document.getElementById('emailVerificationNotice');
+  if(signedOut)signedOut.classList.toggle('hide',!!user);
+  if(signedIn)signedIn.classList.toggle('hide',!user);
+  if(verificationNotice&&user)verificationNotice.classList.add('hide');
+  if(roleTag)roleTag.textContent=user?('Signed in · '+vetnovaRole):'Not signed in';
+  const email=document.getElementById('accountEmail');if(email)email.textContent=user?.email||'';
+  const isAdmin=!!user&&vetnovaRole==='admin',isFarmer=!!user&&vetnovaRole==='farmer';
+  const farmerPanel=document.getElementById('farmerWorkspacePanel');if(farmerPanel)farmerPanel.classList.toggle('hide',!isFarmer);
+  const farmerPortal=document.getElementById('farmerportal');if(farmerPortal)farmerPortal.classList.toggle('hide',!isFarmer);
+  const semenPage=document.getElementById('semen');if(semenPage)semenPage.classList.toggle('hide',!(isFarmer||isAdmin));
+  const pageAccess={admin:isAdmin,farmerdata:isAdmin,accounting:isAdmin,dealer:isAdmin|| (!!user&&vetnovaRole==='dealer'),spo:isAdmin|| (!!user&&vetnovaRole==='spo')};
+  Object.entries(pageAccess).forEach(([page,allowed])=>{document.querySelectorAll(`[data-page="${page}"]`).forEach(b=>b.classList.toggle('hide',!allowed));const section=document.getElementById(page);if(section)section.classList.toggle('hide',!allowed);});
+  document.querySelectorAll('[data-access]').forEach(tile=>{const a=tile.dataset.access;const ok=a==='admin'?isAdmin:a==='farmer'?isFarmer:a==='dealer'?(isAdmin|| (!!user&&vetnovaRole==='dealer')):(isAdmin|| (!!user&&vetnovaRole==='spo'));tile.classList.toggle('hide',!ok);});
   ['admin','accounting','farmerdata'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.toggle('hide',!isAdmin);});
   const dealerPage=document.getElementById('dealer');if(dealerPage)dealerPage.classList.toggle('hide',!(user&&['admin','dealer'].includes(vetnovaRole)));
   const spoPage=document.getElementById('spo');if(spoPage)spoPage.classList.toggle('hide',!(user&&['admin','spo'].includes(vetnovaRole)));
-  document.querySelectorAll('[data-access]').forEach(tile => {
-    const access=tile.dataset.access;
-    const allowed=access==='admin' ? isAdmin : access==='farmer' ? isFarmer : access==='dealer' ? (isAdmin || (!!user && vetnovaRole==='dealer')) : (isAdmin || (!!user && vetnovaRole==='spo'));
-    tile.classList.toggle('hide', !allowed);
-  });
-  const managerOnly = document.getElementById('adminProductManager');
-  if (managerOnly) managerOnly.classList.toggle('hide', !(user && vetnovaRole === 'admin'));
-  const adminNotice = document.getElementById('adminAccessNotice');
-  if (adminNotice) adminNotice.classList.toggle('hide', !!(user && vetnovaRole === 'admin'));
+  const managerOnly=document.getElementById('adminProductManager');if(managerOnly)managerOnly.classList.toggle('hide',!(user&&vetnovaRole==='admin'));
+  const adminNotice=document.getElementById('adminAccessNotice');if(adminNotice)adminNotice.classList.toggle('hide',!!(user&&vetnovaRole==='admin'));
 }
-async function vetnovaRefreshAccount() {
-  const {data:{session}, error} = await vetnovaSupabase.auth.getSession();
-  if (error) console.warn('Session check:', error.message);
-  if (!session?.user) { setAccountUI(null); return; }
-  let role = 'guest';
-  const {data:profile,error:profileError} = await vetnovaSupabase.from('profiles').select('role,full_name').eq('id',session.user.id).maybeSingle();
-  if (profileError) console.warn('Profile role lookup:', profileError.message);
-  if (profile?.role) role = profile.role;
-  setAccountUI(session.user, role);
-  if (role === 'admin') { await loadAdminProducts(); await loadArchitectureProjects(); } else { const panel=document.getElementById('adminArchitectureManager'); if(panel) panel.classList.add('hide'); await loadArchitectureProjects(); }
+function showEmailVerificationNotice(message){const el=document.getElementById('emailVerificationNotice');if(el){el.textContent=message;el.classList.remove('hide');}}
+async function vetnovaRefreshAccount(){
+  const {data:{session},error}=await vetnovaSupabase.auth.getSession();if(error)console.warn('Session check:',error.message);
+  if(!session?.user){setAccountUI(null);return;}
+  if(!session.user.email_confirmed_at){await vetnovaSupabase.auth.signOut();setAccountUI(null);showEmailVerificationNotice('Your email is not verified yet. Open the verification email sent by VETNOVA, then sign in again. App access remains blocked until verification.');return;}
+  let role='guest';const {data:profile,error:profileError}=await vetnovaSupabase.from('profiles').select('role,full_name').eq('id',session.user.id).maybeSingle();
+  if(profileError)console.warn('Profile role lookup:',profileError.message);if(profile?.role)role=profile.role;
+  setAccountUI(session.user,role);
+  if(role==='admin'){await loadAdminProducts();await loadArchitectureProjects();}else{const panel=document.getElementById('adminArchitectureManager');if(panel)panel.classList.add('hide');await loadArchitectureProjects();}
+  if(typeof showPage==='function')showPage('home');
+  if(role==='farmer'&&typeof renderFarmerReminders==='function'){renderFarmerReminders();startFarmerReminderTicker();}
 }
-async function vetnovaSignIn() {
-  const email=document.getElementById('authEmail').value.trim(), password=document.getElementById('authPassword').value;
-  if(!email||!password){toast('Enter your email and password.');return;}
-  const {data,error}=await vetnovaSupabase.auth.signInWithPassword({email,password});
-  if(error){toast('Sign in failed: '+error.message);return;}
-  await vetnovaRefreshAccount(); toast('Signed in successfully.');
+async function vetnovaSignIn(){
+ const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;
+ if(!email||!password){toast('Enter your email and password.');return;}
+ const {data,error}=await vetnovaSupabase.auth.signInWithPassword({email,password});
+ if(error){if(/email not confirmed|email_not_confirmed/i.test(String(error.message)))showEmailVerificationNotice('Please verify your email first. Check your inbox or spam folder, then use Resend verification email.');toast('Sign in failed: '+error.message);return;}
+ if(!data.user?.email_confirmed_at){await vetnovaSupabase.auth.signOut();setAccountUI(null);showEmailVerificationNotice('Email verification is required before you can access VETNOVA. Check your inbox, then sign in again.');return;}
+ await vetnovaRefreshAccount();toast('Signed in successfully. Welcome to VETNOVA.');
 }
-async function vetnovaSignUp() {
-  const email=document.getElementById('authEmail').value.trim(), password=document.getElementById('authPassword').value;
-  const requestedRole=document.getElementById('requestedRole')?.value||'customer';
-  if(!email||password.length<6){toast('Enter a valid email and a password of at least 6 characters.');return;}
-  // Store this as a request only. Never write a privileged role into profiles from the browser.
-  const {data,error}=await vetnovaSupabase.auth.signUp({email,password,options:{data:{requested_role:requestedRole}}});
-  if(error){toast('Account creation failed: '+error.message);return;}
-  const label={customer:'Customer',farmer:'Farmer',dealer:'Dealer',spo:'SPO',admin:'Admin',administrator:'Administrator'}[requestedRole]||'Customer';
-  const approval=['dealer','spo','admin','administrator'].includes(requestedRole);
-  toast((data.session ? 'Account created. ' : 'Account created. Check your email to confirm. ')+`Registration type: ${label}. `+(approval?'Access remains pending until VETNOVA management approves it.':''));
-  await vetnovaRefreshAccount();
+async function vetnovaSignUp(){
+ const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value,requestedRole=document.getElementById('requestedRole')?.value||'customer';
+ if(!email||password.length<6){toast('Enter a valid email and a password of at least 6 characters.');return;}
+ const redirectTo=window.location.origin+window.location.pathname;
+ const {data,error}=await vetnovaSupabase.auth.signUp({email,password,options:{data:{requested_role:requestedRole},emailRedirectTo:redirectTo}});
+ if(error){toast('Account creation failed: '+error.message);return;}
+ if(data.session&&!data.user?.email_confirmed_at)await vetnovaSupabase.auth.signOut();
+ setAccountUI(null);
+ const label={customer:'Customer',farmer:'Farmer',dealer:'Dealer',spo:'SPO',admin:'Admin',administrator:'Administrator'}[requestedRole]||'Customer';
+ const approval=['dealer','spo','admin','administrator'].includes(requestedRole);
+ showEmailVerificationNotice(`Account created for ${label}. A verification link has been sent to ${email}. Verify your email before signing in. `+(approval?'Your requested role remains pending VETNOVA management approval.':''));
+ toast('Check your email and verify your account before signing in.');
 }
-async function vetnovaSignOut(){const {error}=await vetnovaSupabase.auth.signOut();if(error){toast(error.message);return;}setAccountUI(null);toast('Signed out.');}
+async function vetnovaResendVerification(){
+ const email=document.getElementById('authEmail').value.trim();if(!email){toast('Enter your email address first.');return;}
+ const {error}=await vetnovaSupabase.auth.resend({type:'signup',email,options:{emailRedirectTo:window.location.origin+window.location.pathname}});
+ if(error){toast('Could not resend verification email: '+error.message);return;}
+ showEmailVerificationNotice('A new verification email has been requested. Check your inbox and spam folder.');toast('Verification email requested.');
+}
+async function vetnovaSignOut(){const {error}=await vetnovaSupabase.auth.signOut();if(error){toast(error.message);return;}setAccountUI(null);if(typeof showPage==='function')showPage('home');toast('Signed out.');}
 function renderLiveProduct(item) {
   const isFeed=String(item.category||'').toLowerCase().includes('feed');
   const icon=isFeed?'🌾':'🧰';
@@ -712,43 +718,38 @@ async function loadLiveProducts() {
   if(equipment) equipment.innerHTML=liveEquipment.length ? liveEquipment.map(renderLiveProduct).join('') : fallbackEquipment.map(x=>`<article class="card product"><div class="emoji">${x[1]}</div><div><strong>${safeText(x[0])}</strong><div class="small">Ask for current price and availability</div><button class="btn secondary" style="margin-top:7px" onclick='openOrderModal(${JSON.stringify(x[0])}, \"Equipment\", null, \"unit\")'>Request / Order</button></div></article>`).join('');
 }
 async function loadAdminProducts(){
-  const box=document.getElementById('adminProductsList');if(!box)return;
-  if(vetnovaRole!=='admin'){box.innerHTML='';return;}
-  const {data,error}=await vetnovaSupabase.from('products').select(VETNOVA_PRODUCT_FIELDS).order('category').order('name');
-  if(error){box.innerHTML='<p class="small">Unable to load products: '+safeText(error.message)+'</p>';return;}
-  if(!data?.length){box.innerHTML='<p class="small">No products in the database yet. Add the first product above.</p>';return;}
-  box.innerHTML='<div class="tablewrap"><table><thead><tr><th>Product</th><th>Category</th><th>Price (PKR)</th><th>Availability</th><th>Actions</th></tr></thead><tbody>'+data.map(p=>`<tr><td>${safeText(p.name)}</td><td>${safeText(p.category)}</td><td><input aria-label="Price for ${safeText(p.name)}" id="price-${p.id}" type="number" min="0" step="0.01" value="${p.price??''}" style="width:115px;padding:7px;border:1px solid #cddce8;border-radius:7px"></td><td>${p.is_available?'Available':'Hidden'}</td><td><div class="row"><button class="btn secondary" onclick="vetnovaUpdatePrice('${p.id}')">Update</button><button class="btn" style="background:#b42318" onclick="vetnovaDeleteProduct('${p.id}')">Delete</button></div></td></tr>`).join('')+'</tbody></table></div>';
+ const box=document.getElementById('adminProductsList');if(!box)return;if(vetnovaRole!=='admin'){box.innerHTML='';return;}
+ const {data,error}=await vetnovaSupabase.from('products').select(VETNOVA_PRODUCT_FIELDS).order('category').order('name');
+ if(error){box.innerHTML='<p class="small">Unable to load products: '+safeText(error.message)+'</p>';return;}
+ if(!data?.length){box.innerHTML='<p class="small">No products in the database yet. Add the first product above.</p>';return;}
+ box.innerHTML='<div class="tablewrap"><table><thead><tr><th>Name</th><th>Category</th><th>Description</th><th>Price PKR</th><th>Unit</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead><tbody>'+data.map(p=>`<tr>
+ <td><input id="pname-${p.id}" value="${safeText(p.name)}" style="width:145px;padding:7px"></td>
+ <td><input id="pcat-${p.id}" value="${safeText(p.category||'Other')}" style="width:105px;padding:7px"></td>
+ <td><input id="pdesc-${p.id}" value="${safeText(p.description||'')}" style="width:155px;padding:7px"></td>
+ <td><input id="price-${p.id}" type="number" min="0" step="0.01" value="${p.price??''}" style="width:105px;padding:7px"></td>
+ <td><input id="punit-${p.id}" value="${safeText(p.unit||'unit')}" style="width:90px;padding:7px"></td>
+ <td><input id="pstock-${p.id}" type="number" min="0" step="1" value="${Number(p.stock_quantity||0)}" style="width:75px;padding:7px"></td>
+ <td>${p.is_available?'Active':'Deactivated'}</td>
+ <td><div class="row"><button class="btn secondary" onclick="vetnovaSaveProduct('${p.id}')">Save</button><button class="btn" style="background:${p.is_available?'#b42318':'#23845b'}" onclick="vetnovaSetProductAvailability('${p.id}',${p.is_available?'false':'true'})">${p.is_available?'Deactivate':'Reactivate'}</button></div></td>
+ </tr>`).join('')+'</tbody></table></div><p class="small">Existing products can be edited. Deactivation hides a product from new orders but preserves past order references.</p>';
 }
-async function vetnovaAddProduct(){
-  if(vetnovaRole!=='admin'){toast('Admin access is required.');return;}
-  const name=document.getElementById('newProductName').value.trim(),category=document.getElementById('newProductCategory').value;
-  const rawPrice=document.getElementById('newProductPrice').value,unit=document.getElementById('newProductUnit').value.trim()||'unit';
-  const stock=parseInt(document.getElementById('newProductStock').value||'0',10),description=document.getElementById('newProductDescription').value.trim();
-  if(!name){toast('Enter a product name.');return;}
-  const price=rawPrice===''?null:Number(rawPrice);if(price!==null&&(!Number.isFinite(price)||price<0)){toast('Enter a valid non-negative price.');return;}
-  if(!Number.isInteger(stock)||stock<0){toast('Enter a valid stock quantity.');return;}
-  const {error}=await vetnovaSupabase.from('products').insert({name,category,description,price,unit,stock_quantity:stock,is_available:true});
-  if(error){toast('Could not add product: '+error.message);return;}
-  ['newProductName','newProductPrice','newProductDescription'].forEach(id=>document.getElementById(id).value='');
-  await loadAdminProducts();await loadLiveProducts();toast('Product added to the live store.');
+async function vetnovaSaveProduct(id){
+ if(vetnovaRole!=='admin'){toast('Admin access is required.');return;}
+ const name=document.getElementById('pname-'+id)?.value.trim(),category=document.getElementById('pcat-'+id)?.value.trim()||'Other',description=document.getElementById('pdesc-'+id)?.value.trim()||null,rawPrice=document.getElementById('price-'+id)?.value,unit=document.getElementById('punit-'+id)?.value.trim()||'unit',stock=Number(document.getElementById('pstock-'+id)?.value),price=rawPrice===''?null:Number(rawPrice);
+ if(!name){toast('Product name is required.');return;}if(price!==null&&(!Number.isFinite(price)||price<0)){toast('Enter a valid non-negative price.');return;}if(!Number.isInteger(stock)||stock<0){toast('Enter a valid whole-number stock quantity.');return;}
+ const {data,error}=await vetnovaSupabase.from('products').update({name,category,description,price,unit,stock_quantity:stock,updated_at:new Date().toISOString()}).eq('id',id).select('id').maybeSingle();
+ if(error){toast('Product update failed: '+error.message);return;}if(!data){toast('No product row was updated. Check the Supabase product UPDATE policy for this administrator.');return;}
+ await loadAdminProducts();await loadLiveProducts();toast('Product details saved.');
 }
-async function vetnovaUpdatePrice(id){
-  if(vetnovaRole!=='admin'){toast('Admin access is required.');return;}
-  const input=document.getElementById('price-'+id),value=input?.value;
-  const price=value===''?null:Number(value);if(price!==null&&(!Number.isFinite(price)||price<0)){toast('Enter a valid non-negative price.');return;}
-  const {error}=await vetnovaSupabase.from('products').update({price,updated_at:new Date().toISOString()}).eq('id',id);
-  if(error){toast('Price update failed: '+error.message);return;}
-  await loadAdminProducts();await loadLiveProducts();toast('Product price updated.');
+async function vetnovaSetProductAvailability(id,available){
+ if(vetnovaRole!=='admin'){toast('Admin access is required.');return;}
+ if(!confirm(`Are you sure you want to ${available?'reactivate':'deactivate'} this product? ${available?'It will return to the customer catalogue.':'It will be hidden from new orders; past order records remain intact.'}`))return;
+ const {data,error}=await vetnovaSupabase.from('products').update({is_available:available,updated_at:new Date().toISOString()}).eq('id',id).select('id').maybeSingle();
+ if(error){toast('Product status update failed: '+error.message);return;}if(!data){toast('No product row was updated. Check the Supabase product UPDATE policy for this administrator.');return;}
+ await loadAdminProducts();await loadLiveProducts();toast(available?'Product reactivated.':'Product deactivated; order history preserved.');
 }
-async function vetnovaDeleteProduct(id){
-  if(vetnovaRole!=='admin'){toast('Admin access is required.');return;}
-  if(!window.confirm('Permanently delete this product? This action cannot be undone.'))return;
-  const {error}=await vetnovaSupabase.from('products').delete().eq('id',id);
-  if(error){toast('Product deletion failed: '+error.message);return;}
-  await loadAdminProducts();
-  await loadLiveProducts();
-  toast('Product permanently deleted.');
-}
+async function vetnovaUpdatePrice(id){return vetnovaSaveProduct(id);}
+async function vetnovaDeleteProduct(id){return vetnovaSetProductAvailability(id,false);}
 async function sendConsultation(){
   const n=document.getElementById('consultName').value.trim(),p=document.getElementById('consultPhone').value.trim(),t=document.getElementById('consultType').value,l=document.getElementById('consultLocation').value.trim(),d=document.getElementById('consultDetails').value.trim();
   if(!n||!p||!l){toast('Please enter your name, phone and project location.');return;}
@@ -762,7 +763,7 @@ async function sendConsultation(){
 window.addEventListener('DOMContentLoaded',async()=>{
   try { await vetnovaRefreshAccount(); await loadLiveProducts(); }
   catch(e){console.error('VETNOVA initialization:',e);toast('Could not initialize the live VETNOVA connection.');}
-  vetnovaSupabase.auth.onAuthStateChange((_event,_session)=>{setTimeout(vetnovaRefreshAccount,0);});
+  vetnovaSupabase.auth.onAuthStateChange((_event,_session)=>{setTimeout(async()=>{await vetnovaRefreshAccount();if(vetnovaRole==='farmer'){renderFarmerReminders();startFarmerReminderTicker();}},0);});
 });
 </script>
 
@@ -810,8 +811,17 @@ window.addEventListener('DOMContentLoaded',()=>{setTimeout(async()=>{try{if(vetn
 </section>
 <section id="accounting" class="page hide app-module">
  <button class="back-home" onclick="goBack()">← Back</button><div class="module-head"><span>📊</span><div><h2>Business Accounts</h2><p>Simple overview with detailed transaction records.</p></div></div>
- <div class="metric-grid"><div class="metric"><small>Total sales</small><b>Rs. 0</b></div><div class="metric"><small>Payments received</small><b>Rs. 0</b></div><div class="metric"><small>Expenses</small><b>Rs. 0</b></div><div class="metric"><small>Outstanding</small><b>Rs. 0</b></div><div class="metric"><small>Supplier payables</small><b>Rs. 0</b></div><div class="metric"><small>Net profit</small><b>Rs. 0</b></div></div>
- <div class="module-card"><h3>Accounting sections</h3><div class="shortcut-grid"><div>🧾 Sales & invoices</div><div>📦 Purchases</div><div>💸 Expenses</div><div>🏦 Payments & receipts</div><div>👥 Customer receivables</div><div>🏭 Supplier payables</div><div>↩️ Returns & refunds</div><div>📈 Profit & loss</div></div><p class="hint">Orders should create linked accounting entries automatically. Never delete the original sale when a return or refund occurs; create a linked reversal/credit record instead. Figures shown here are empty preview values, not live accounts.</p></div>
+ <div class="row" style="justify-content:space-between"><p class="small">Currency: PKR · Accrual basis · Double-entry accounting target</p><button class="btn secondary" onclick="loadAccountingDashboard()">Refresh dashboard</button></div>
+ <div class="metric-grid" id="accountingMetrics"><div class="metric"><small>Order value recorded</small><b>Loading…</b></div><div class="metric"><small>Payment entries</small><b>Loading…</b></div><div class="metric"><small>Expenses</small><b>Not connected</b></div><div class="metric"><small>Customer receivables</small><b>Not connected</b></div><div class="metric"><small>Supplier payables</small><b>Not connected</b></div><div class="metric"><small>Net profit</small><b>Not calculated</b></div></div>
+ <div class="module-card"><h3>Accounting sections</h3><div class="shortcut-grid">
+  <button class="accounting-action" onclick="loadAccountingSection('sales')">🧾 Sales &amp; invoices</button><button class="accounting-action" onclick="loadAccountingSection('purchases')">📦 Purchases</button>
+  <button class="accounting-action" onclick="loadAccountingSection('expenses')">💸 Expenses</button><button class="accounting-action" onclick="loadAccountingSection('payments')">🏦 Payments &amp; receipts</button>
+  <button class="accounting-action" onclick="loadAccountingSection('receivables')">👥 Customer receivables</button><button class="accounting-action" onclick="loadAccountingSection('payables')">🏭 Supplier payables</button>
+  <button class="accounting-action" onclick="loadAccountingSection('returns')">↩️ Returns &amp; refunds</button><button class="accounting-action" onclick="loadAccountingSection('profit')">📈 Profit &amp; loss</button>
+  <button class="accounting-action" onclick="loadAccountingSection('journal')">📒 Double-entry journal</button><button class="accounting-action" onclick="loadAccountingSection('trial')">⚖️ Trial balance</button>
+  <button class="accounting-action" onclick="loadAccountingSection('balance')">🏛️ Balance sheet</button><button class="accounting-action" onclick="loadAccountingSection('cashflow')">💧 Cash flow</button>
+ </div><div id="accountingDetail" class="accounting-detail">Choose an accounting section. Live double-entry books, expense entry and financial statements require the reviewed accounting database migration; no sample figures are shown as real accounts.</div>
+ <p class="hint">Confirmed orders and payment records can be read from existing tables. A complete accrual-based ledger, expenses, receivables/payables, inventory valuation and financial statements must not be activated until the accounting schema, journal rules and duplicate-prevention controls are reviewed and installed.</p></div>
 </section>
 <section id="delivery" class="page hide app-module">
  <button class="back-home" onclick="goBack()">← Back</button><div class="module-head"><span>🚚</span><div><h2>Delivery Management</h2><p>Manage courier shipments and VETNOVA's own deliveries.</p></div></div>
@@ -851,6 +861,7 @@ function renderVetnovaPage(p){
   loadAdminContactLinks();loadAdminPaymentMethods();
  }
  if(p==='offers')refreshOffersView();
+ if(p==='accounting'&&typeof loadAccountingDashboard==='function')loadAccountingDashboard();
 }
 function showPage(p,fromHistory=false){
  const adminPages=['farmerdata','accounting','admin','developmentAudit','reproduction'];
@@ -875,6 +886,18 @@ window.addEventListener('popstate',()=>{
 });
 function jumpToAdminControl(id){const el=document.getElementById(id);if(!el)return;el.scrollIntoView({behavior:'smooth',block:'start'});el.style.outline='2px solid var(--gold)';setTimeout(()=>el.style.outline='',1300);}
 function refreshOffersView(){const el=document.getElementById('offersStatus');if(el)el.textContent='No published announcements are connected to the database in this build yet. The refresh control is active; announcement publishing requires its dedicated Supabase table and migration.';}
+async function loadAccountingDashboard(){
+ const box=document.getElementById('accountingMetrics');if(!box)return;
+ box.innerHTML='<div class="metric"><small>Order value recorded</small><b>Loading…</b></div><div class="metric"><small>Payment entries</small><b>Loading…</b></div><div class="metric"><small>Expenses</small><b>Not connected</b></div><div class="metric"><small>Customer receivables</small><b>Not calculated</b></div><div class="metric"><small>Supplier payables</small><b>Not connected</b></div><div class="metric"><small>Net profit</small><b>Not calculated</b></div>';
+ try{
+  await requireOpsRole(['admin']);
+  const [orders,payments]=await Promise.all([vetnovaSupabase.from('vetnova_orders').select('total_amount'),vetnovaSupabase.from('payment_records').select('amount')]);
+  if(orders.error)throw orders.error;if(payments.error)throw payments.error;
+  const orderRows=orders.data||[],paymentRows=payments.data||[],orderValue=orderRows.reduce((n,r)=>n+(Number(r.total_amount)||0),0),paymentValue=paymentRows.reduce((n,r)=>n+(Number(r.amount)||0),0);
+  const money=n=>'Rs '+Number(n).toLocaleString('en-PK',{maximumFractionDigits:2});
+  box.innerHTML=`<div class="metric"><small>Order value recorded · ${orderRows.length} orders</small><b>${money(orderValue)}</b></div><div class="metric"><small>Payment entries · ${paymentRows.length} records</small><b>${money(paymentValue)}</b></div><div class="metric"><small>Expenses</small><b>Not connected</b></div><div class="metric"><small>Customer receivables</small><b>Not calculated</b></div><div class="metric"><small>Supplier payables</small><b>Not connected</b></div><div class="metric"><small>Net profit</small><b>Not calculated</b></div>`;
+ }catch(e){box.innerHTML='<div class="metric"><small>Accounting data</small><b>Could not load</b><span class="small">'+safeText(e.message)+'</span></div>';}
+}
 async function loadAccountingSection(section){
  const box=document.getElementById('accountingDetail');if(!box)return;
  box.textContent='Loading…';
@@ -890,8 +913,8 @@ async function loadAccountingSection(section){
    if(error)throw error;
    box.innerHTML='<h4>Payments &amp; receipts</h4>'+(data&&data.length?'<div class="tablewrap"><table><thead><tr><th>Party</th><th>Amount</th><th>Channel</th><th>Status</th><th>Reference</th></tr></thead><tbody>'+data.map(x=>'<tr><td>'+safeText(x.party_name||'')+'</td><td>Rs '+Number(x.amount||0).toLocaleString('en-PK')+'</td><td>'+safeText(x.payment_channel||'')+'</td><td>'+safeText(x.status||'')+'</td><td>'+safeText(x.transaction_reference||'')+'</td></tr>').join('')+'</tbody></table></div>':'<p>No payment records are available.</p>');return;
   }
-  const names={purchases:'Purchases',expenses:'Expenses',receivables:'Customer receivables',payables:'Supplier payables',returns:'Returns & refunds',profit:'Profit & loss'};
-  box.innerHTML='<h4>'+names[section]+'</h4><p>This section is now selectable, but live entry and reporting are not enabled yet. It requires the accounting schema and a reviewed Supabase migration; no demo figures are being presented as real accounts.</p>';
+  const names={purchases:'Purchases',expenses:'Expenses',receivables:'Customer receivables',payables:'Supplier payables',returns:'Returns & refunds',profit:'Profit & loss',journal:'Double-entry journal',trial:'Trial balance',balance:'Balance sheet',cashflow:'Cash flow'};
+  box.innerHTML='<h4>'+safeText(names[section]||'Accounting')+'</h4><p>This module is not live yet. It requires the reviewed PKR accrual-based double-entry accounting schema, secure journal-entry functions, order/payment links, and administrator-only RLS policies. No sample figures or unverified balances are shown as real accounts.</p>';
  }catch(e){box.textContent='Could not open this accounting section: '+e.message;}
 }
 </script>
@@ -1016,5 +1039,46 @@ window.addEventListener('DOMContentLoaded',()=>{const g=document.getElementById(
  document.addEventListener('DOMContentLoaded',render);
 })();
 </script>
+
+
+<script>
+/* Farmer reminders are per-user and stored locally on this device. Background alarms need native/push support. */
+const FARMER_REMINDER_PREFIX='vetnova_farmer_reminders_v1_';let farmerReminderTicker=null,farmerReminderEditingId=null;
+function farmerReminderKey(){return FARMER_REMINDER_PREFIX+(vetnovaSession?.user?.id||'guest');}
+function readFarmerReminders(){try{return JSON.parse(localStorage.getItem(farmerReminderKey())||'[]')}catch(e){return []}}
+function writeFarmerReminders(rows){localStorage.setItem(farmerReminderKey(),JSON.stringify(rows))}
+function renderFarmerReminders(){
+ const box=document.getElementById('farmerReminderList');if(!box)return;const rows=readFarmerReminders();
+ box.innerHTML=rows.length?rows.map(r=>`<div class="module-card" style="padding:12px;margin:8px 0"><div class="row" style="justify-content:space-between"><div><b>${safeText(r.type)}</b> · <b>${safeText(r.time)}</b><div class="small">${safeText(r.repeat)}${r.animal?' · '+safeText(r.animal):''}${r.note?' · '+safeText(r.note):''}${r.dismissedDate===new Date().toDateString()?' · Dismissed today':''}</div></div><div class="row"><button class="btn secondary" onclick="editFarmerReminder('${safeText(r.id)}')">Edit</button><button class="btn secondary" onclick="snoozeFarmerReminder('${safeText(r.id)}')">Snooze 10 min</button><button class="btn secondary" onclick="dismissFarmerReminder('${safeText(r.id)}')">Dismiss today</button><button class="btn secondary" onclick="deleteFarmerReminder('${safeText(r.id)}')">Delete</button></div></div></div>`).join(''):'<p class="small">No farmer reminders saved yet.</p>';
+}
+async function enableFarmerReminderNotifications(){if(!('Notification'in window)){toast('This browser does not support notifications.');return;}const p=await Notification.requestPermission();toast(p==='granted'?'Farmer reminder notifications enabled.':'Notification permission was not granted.');}
+function saveFarmerReminder(){
+ if(vetnovaRole!=='farmer'){toast('Sign in with an approved Farmer account to save farmer reminders.');return;}
+ const type=document.getElementById('farmerReminderType').value,time=document.getElementById('farmerReminderTime').value,animal=document.getElementById('farmerReminderAnimal').value.trim(),repeat=document.getElementById('farmerReminderRepeat').value,note=document.getElementById('farmerReminderNote').value.trim();
+ if(!time){toast('Choose an alarm time.');return;}
+ const rows=readFarmerReminders(),data={type,time,animal,repeat,note,enabled:true,lastFiredDate:'',dismissedDate:'',snoozeAt:null,snoozeDate:''};
+ if(farmerReminderEditingId){const row=rows.find(x=>x.id===farmerReminderEditingId);if(row)Object.assign(row,data);farmerReminderEditingId=null;document.getElementById('farmerReminderSaveButton')?.replaceChildren(document.createTextNode('Save reminder'));}
+ else rows.push({id:'fr_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),...data});
+ writeFarmerReminders(rows);document.getElementById('farmerReminderAnimal').value='';document.getElementById('farmerReminderNote').value='';renderFarmerReminders();toast('Farmer reminder saved on this device.');
+}
+function editFarmerReminder(id){const r=readFarmerReminders().find(x=>x.id===id);if(!r)return;farmerReminderEditingId=id;document.getElementById('farmerReminderType').value=r.type;document.getElementById('farmerReminderTime').value=r.time;document.getElementById('farmerReminderAnimal').value=r.animal||'';document.getElementById('farmerReminderRepeat').value=r.repeat;document.getElementById('farmerReminderNote').value=r.note||'';const b=document.getElementById('farmerReminderSaveButton');if(b)b.textContent='Update reminder';document.getElementById('farmerReminderPanel').scrollIntoView({behavior:'smooth'});}
+function snoozeFarmerReminder(id){const rows=readFarmerReminders(),r=rows.find(x=>x.id===id);if(!r)return;const now=new Date();now.setMinutes(now.getMinutes()+10);r.snoozeAt=now.toISOString();r.snoozeDate=new Date().toDateString();r.lastFiredDate='';r.dismissedDate='';writeFarmerReminders(rows);renderFarmerReminders();toast('Reminder snoozed for 10 minutes while Vetnova is open.');}
+function dismissFarmerReminder(id){const rows=readFarmerReminders(),r=rows.find(x=>x.id===id);if(!r)return;r.dismissedDate=new Date().toDateString();r.snoozeAt=null;writeFarmerReminders(rows);renderFarmerReminders();toast('Reminder dismissed for today.');}
+function deleteFarmerReminder(id){writeFarmerReminders(readFarmerReminders().filter(r=>r.id!==id));if(farmerReminderEditingId===id)farmerReminderEditingId=null;renderFarmerReminders();toast('Reminder deleted.');}
+function farmerReminderDueToday(r,now){const d=now.getDay();if(r.repeat==='weekdays'&&(d===0||d===6))return false;if(r.repeat==='weekends'&&(d!==0&&d!==6))return false;return true;}
+function checkFarmerReminders(){
+ if(vetnovaRole!=='farmer'||!vetnovaSession?.user)return;const rows=readFarmerReminders(),now=new Date(),today=now.toDateString(),hm=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');let changed=false;
+ rows.forEach(r=>{
+  if(!r.enabled||!farmerReminderDueToday(r,now)||r.lastFiredDate===today||r.dismissedDate===today)return;
+  const snoozed=r.snoozeAt&&r.snoozeDate===today&&now.getTime()>=new Date(r.snoozeAt).getTime();
+  if(!snoozed&&r.time!==hm)return;
+  const body=[r.animal?'Animal: '+r.animal:'',r.note].filter(Boolean).join(' · ')||'It is time for your '+r.type.toLowerCase()+'.';
+  if('Notification'in window&&Notification.permission==='granted'){try{new Notification('VETNOVA Farmer Reminder',{body,tag:r.id})}catch(e){toast('⏰ '+r.type+' — '+body)}}else toast('⏰ '+r.type+' — '+body);
+  r.lastFiredDate=today;r.snoozeAt=null;changed=true;
+ });
+ if(changed)writeFarmerReminders(rows);
+}
+function startFarmerReminderTicker(){if(farmerReminderTicker)clearInterval(farmerReminderTicker);farmerReminderTicker=setInterval(checkFarmerReminders,15000);checkFarmerReminders();}
+window.addEventListener('DOMContentLoaded',()=>{if(vetnovaRole==='farmer'){renderFarmerReminders();startFarmerReminderTicker();}document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkFarmerReminders();});});
 
 </body></html>
